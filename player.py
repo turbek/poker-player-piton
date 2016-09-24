@@ -197,14 +197,14 @@ class Player:
     #                     self.state.append(flop)
     #         return len(self.state)
 
-    def ifsuit(self):
-        if self.hand[0]["suit"] == self.hand[1]["suit"]:
-            for card in self.hand:
-                for flop in self.commun_cards:
-                    if card["suit"] == flop["suit"]:
-                        self.suit.append(card)
-        if len(self.suit) >= 5:
-            return True
+    # def ifsuit(self):
+    #     if self.hand[0]["suit"] == self.hand[1]["suit"]:
+    #         for card in self.hand:
+    #             for flop in self.commun_cards:
+    #                 if card["suit"] == flop["suit"]:
+    #                     self.suit.append(card)
+    #     if len(self.suit) >= 5:
+    #         return True
 
     def think(self, game_state):
         self.communreturn(game_state)
@@ -219,38 +219,48 @@ class Player:
                             if card == "rank":
                                 if value in self.low_cards:
                                     bet = 0
-            if game_state["pot"] > 100:
-                if self.hand[0]["rank"] in self.high_cards and self.hand[1]["rank"] in self.high_cards:
-                    bet = 6000
-                else:
-                    bet = 0
-
-            if game_state["pot"] > 100:
-                if self.hand[0]["rank"] == self.hand[1]["rank"]:
-                    bet = 6000
-            else:
-                if self.hand[0]["rank"] == self.hand[1]["rank"]:
-                    bet = game_state["minimum_raise"]
-        elif len(game_state["community_cards"]) == 3:
+        else:
             for card in self.hand:
                 self.allvalues.append(card["rank"])
             for card in self.commun_cards:
                 self.allvalues.append(card["rank"])
-            if len(set(self.allvalues)) == 4:
-                bet = game_state["minimum_raise"]
-            elif len(set(self.allvalues)) == 3:
+            if len(set(self.allvalues)) < 5:
                 bet = 6000
-            elif len(set(self.allvalues)) == 2:
-                bet = 6000
-            elif self.ifsuit():
-                if game_state["minimum_raise"] < 150:
-                    bet = game_state["minimum_raise"]
-                else:
-                    bet = 6000
-            else:
-                bet = 0
-        else:
-            bet = 6000
 
         return bet
 
+        #     if game_state["pot"] > 100:
+        #         if self.hand[0]["rank"] in self.high_cards and self.hand[1]["rank"] in self.high_cards:
+        #             bet = 6000
+        #         else:
+        #             bet = 0
+        #
+        #     if game_state["pot"] > 100:
+        #         if self.hand[0]["rank"] == self.hand[1]["rank"]:
+        #             bet = 6000
+        #     else:
+        #         if self.hand[0]["rank"] == self.hand[1]["rank"]:
+        #             bet = game_state["minimum_raise"]
+        # elif len(game_state["community_cards"]) == 3:
+        #     for card in self.hand:
+        #         self.allvalues.append(card["rank"])
+        #     for card in self.commun_cards:
+        #         self.allvalues.append(card["rank"])
+        #     if len(set(self.allvalues)) == 4:
+        #         bet = game_state["minimum_raise"]
+        #     elif len(set(self.allvalues)) == 3:
+        #         bet = 6000
+        #     elif len(set(self.allvalues)) == 2:
+        #         bet = 6000
+        #     elif self.ifsuit():
+        #         if game_state["minimum_raise"] < 150:
+        #             bet = game_state["minimum_raise"]
+        #         else:
+        #             bet = 6000
+        #     else:
+        #         bet = 0
+        # else:
+        #     bet = 6000
+        #
+        # return bet
+        #
