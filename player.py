@@ -155,7 +155,7 @@ a = {
 class Player:
     VERSION = "SZEGYEN"
 
-    low_cards = ["2", "3", "4", "5", "6", "7", "8", "9"]
+    low_cards = ["2", "3", "4", "5", "6", "7"]
     high_cards = ["10", "J", "Q", "K", "A"]
     hand = []
     commun_cards = []
@@ -224,7 +224,7 @@ class Player:
                         for cards in player["hole_cards"]:
                             for card, value in cards.items():
                                 if card == "rank":
-                                    if value in self.high_cards:
+                                    if self.hand[0]["rank"] in self.high_cards and self.hand[1]["rank"] in self.high_cards:
                                         bet = 6000
                                     else:
                                         bet = 0
