@@ -227,7 +227,7 @@ class Player:
             if len(set(self.allvalues)) < 5:
                 bet = 6000
 
-        return bet
+        return 0
 
         #     if game_state["pot"] > 100:
         #         if self.hand[0]["rank"] in self.high_cards and self.hand[1]["rank"] in self.high_cards:
