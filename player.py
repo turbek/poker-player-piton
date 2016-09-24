@@ -92,12 +92,7 @@ a = {
 }
 
 
-class Player:
-    VERSION = "Default Python folding player"
 
-# <<<<<<< Updated upstream
-    low_cards = ["2", "3", "4", "5", "6", "7", "8", "9", "10"]
-    hand = []
 #     odds = {"hand": [
 #             [{"rank": "A"}, {"rank": "A"},  {"odds": 4}, {"suit": False}],
 #             [{"rank": "K"}, {"rank": "K"},  {"odds": 4}, {"suit": False}],
@@ -157,84 +152,94 @@ class Player:
 #             [{"rank": "J"}, {"rank": "7"},  {"odds": 1}, {"suit": True}]
 #             ]}
 
+class Player:
+    VERSION = "SZEGYEN"
+
+    low_cards = ["2", "3", "4", "5", "6", "7", "8", "9"]
+    high_cards = ["10", "J", "Q", "K", "A"]
+    hand = []
+    commun_cards = []
+    handcard1 = []
+    handcard2 = []
+    suit = []
+
     def betRequest(self, game_state):
         return self.think(game_state)
-# =======
-#     low_cards = ["2", "3", "4", "5", "6", "7", "8", "9"]
-#     hand = []
-#     commun_cards = []
-#     handcard1 = []
-#     handcard2 = []
-#     suit = []
-#
-#     def betRequest(self, game_state):
-#         self.handreturn(game_state)
-#         self.communreturn(game_state)
-# >>>>>>> Stashed changes
-#
-#     def showdown(self, game_state):
-#        pass
-#
-#     def handreturn(self, game_state):
-#         self.hand = []
-#         for player in game_state["players"]:
-#             if player["name"] == "piton":
-#                 for cards in player["hole_cards"]:
-#                     self.hand.append(cards)
-#
-#     def communreturn(self, game_state):
-#         self.commun_cards = []
-#         for cards in game_state["community_cards"]:
-#             self.commun_cards.append(cards)
-#
-#     def checkifhandpair(self):
-#         if self.hand[0]["rank"] == self.hand[1]["rank"]:
-#             return True
-#
-#     def checkifpair(self):
-#         for flop in self.commun_cards:
-#             if self.hand[0]["rank"] == flop["rank"]:
-#                 self.handcard1.append(flop["rank"])
-#             # for card in self.hand:
-#             #     for flop in self.commun_cards:
-#             #         if card["rank"] == flop["rank"]:
-#             #             self.state.append(card)
-#             #             self.state.append(flop)
-#             # return len(self.state)
-#
-#     def ifsuit(self):
-#         if self.hand[0]["suit"] == self.hand[1]["suit"]:
-#             for card in self.hand:
-#                 for flop in self.commun_cards:
-#                     if card["suit"] == flop["suit"]:
-#                         self.suit.append(card)
-#         if len(self.suit) >= 5:
-#             return True
-#
-#
-#     # def think(self):
-#     #     for player in a["players"]:  # PlayerService().game_state
-#     #         if player["name"] == "piton":
-#     #             for cards in player["hole_cards"]:
-#     #                 for card, value in cards.items():
-#     #                     if card == "rank":
-#     #                         if value in self.low_cards:
-#     #                             bet = 0
-#     #
-#     #     return bet
-#
-# <<<<<<< Updated upstream
+
+    def showdown(self, game_state):
+       pass
+
+    # def handreturn(self, game_state):
+    #     self.hand = []
+    #     for player in game_state["players"]:
+    #         if player["name"] == "piton":
+    #             for cards in player["hole_cards"]:
+    #                 self.hand.append(cards)
+
+    # def communreturn(self, game_state):
+    #     self.commun_cards = []
+    #     for cards in game_state["community_cards"]:
+    #         self.commun_cards.append(cards)
+
+    # def checkifhandpair(self):
+    #     if self.hand[0]["rank"] == self.hand[1]["rank"]:
+    #         return True
+    #
+    # def checkifpair(self):
+    #     for flop in self.commun_cards:
+    #         if self.hand[0]["rank"] == flop["rank"]:
+    #             self.handcard1.append(flop["rank"])
+    #         for card in self.hand:
+    #             for flop in self.commun_cards:
+    #                 if card["rank"] == flop["rank"]:
+    #                     self.state.append(card)
+    #                     self.state.append(flop)
+    #         return len(self.state)
+
+    # def ifsuit(self):
+    #     if self.hand[0]["suit"] == self.hand[1]["suit"]:
+    #         for card in self.hand:
+    #             for flop in self.commun_cards:
+    #                 if card["suit"] == flop["suit"]:
+    #                     self.suit.append(card)
+    #     if len(self.suit) >= 5:
+    #         return True
+
     def think(self, game_state):
-        # if len(game_state["community_cards"]) == 0:
-        bet = 6000
-        for player in game_state["players"]:
-            if player["name"] == "piton":
-                for cards in player["hole_cards"]:
-                    self.hand.append(cards)
-                    for card, value in cards.items():
-                        if card == "rank":
-                            if value in self.low_cards:
-                                bet = 0
-        if self.hand[0]["rank"] == self.hand[1]["rank"]:
+        # self.communreturn(game_state)
+        bet = 30
+
+        if len(game_state["community_cards"]) == 0:
+            for player in game_state["players"]:
+                if player["name"] == "piton":
+                    for cards in player["hole_cards"]:
+                        self.hand.append(cards)
+                        for card, value in cards.items():
+                            if card == "rank":
+                                if value in self.low_cards:
+                                    bet = 0
+            if game_state["pot"] > 100:
+                for player in game_state["players"]:
+                    if player["name"] == "piton":
+                        for cards in player["hole_cards"]:
+                            for card, value in cards.items():
+                                if card == "rank":
+                                    if value in self.high_cards:
+                                        bet = 6000
+                                    else:
+                                        bet = 0
+
+            if game_state["pot"] > 100:
+                if self.hand[0]["rank"] == self.hand[1]["rank"]:
+                    bet = 6000
+            else:
+                if self.hand[0]["rank"] == self.hand[1]["rank"]:
+                    bet = 30
+        else:
             bet = 6000
+
+        # if self.ifsuit():
+        #     bet = 6000
+
         return bet
+
