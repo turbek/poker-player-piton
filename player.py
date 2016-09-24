@@ -96,7 +96,7 @@ class Player:
     VERSION = "Default Python folding player"
 
 # <<<<<<< Updated upstream
-    low_cards = ["2", "3", "4", "5", "6", "7", "8"]
+    low_cards = ["2", "3", "4", "5", "6", "7", "8", "9", "10"]
     hand = []
 #     odds = {"hand": [
 #             [{"rank": "A"}, {"rank": "A"},  {"odds": 4}, {"suit": False}],
@@ -226,7 +226,7 @@ class Player:
 # <<<<<<< Updated upstream
     def think(self, game_state):
         # if len(game_state["community_cards"]) == 0:
-        bet = 1000
+        bet = 6000
         for player in game_state["players"]:
             if player["name"] == "piton":
                 for cards in player["hole_cards"]:
@@ -236,56 +236,5 @@ class Player:
                             if value in self.low_cards:
                                 bet = 0
         if self.hand[0]["rank"] == self.hand[1]["rank"]:
-            bet = 1000
+            bet = 6000
         return bet
-
-        # for odd in self.odds:
-        #     possible_hand = []
-        #     for card in odd[:2]:
-        #         possible_hand.append(card)
-        #     if (self.hand[0]["rank"] == possible_hand[0]["rank"] and self.hand[1]["rank"] == possible_hand[1]["rank"] or self.hand[1]["rank"] == possible_hand[0]["rank"] and self.hand[0]["rank"] == possible_hand[1]["rank"]) and ((possible_hand[0]["suit"] == possible_hand[1]["suit"]) == suit_check()):
-        #             if int(possible_hand[0]["odds"]) > 2:
-        #                 bet = 6000
-        #                 break
-        #             else:
-        #                 bet = 50
-        #                 break
-        #     return bet
-        # if len(game_state["community_cards"]) == 0:
-    #
-    # def suit_check(self):
-    #     return self.hand[0]["suit"] == self.hand[1]["suit"]
-    #
-    # def handreturn(self, game_state):
-    #     self.hand = []
-    #     for player in game_state["players"]:
-    #         if player["name"] == "piton":
-    #             for cards in player["hole_cards"]:
-    #                 self.hand.append(cards)
-    #
-    # def communreturn(self, game_state):
-    #     self.commun_cards = []
-    #     for cards in game_state["community_cards"]:
-    #         self.commun_cards.append(cards)
-    #
-    # def checkpair(self, game_state):
-    #     for card in self.hand:
-    #         for flop in self.commun_cards:
-    #             if card["rank"] == flop["rank"]:
-    #                 self.state.append(card)
-    #                 self.state.append(flop)
-    #     return len(self.state)
-    #
-    # def ifsuit(self):
-    #     if self.hand[0]["suit"] == self.hand[1]["suit"]:
-    #         for card in self.hand:
-    #             for flop in self.commun_cards:
-    #                 if card["suit"] == flop["suit"]:
-    #                     self.suit.append(card)
-    #     if len(self.suit) >= 5:
-    #         return True
-# =======
-# x = Player()
-# x.betRequest(a)
-# print(x.ifsuit())
-# >>>>>>> Stashed changes
