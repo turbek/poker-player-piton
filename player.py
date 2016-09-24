@@ -207,27 +207,14 @@ class Player:
     #         return True
 
     def think(self, game_state):
-        self.communreturn(game_state)
-        bet = game_state["pot"]
-
-        if len(game_state["community_cards"]) == 0:
-            for player in game_state["players"]:
-                if player["name"] == "piton":
-                    for cards in player["hole_cards"]:
-                        self.hand.append(cards)
-                        for card, value in cards.items():
-                            if card == "rank":
-                                if value in self.low_cards:
-                                    bet = 0
+        for player in game_state["players"]:
+            if player["name"] == "piton":
+                for cards in player["hole_cards"]:
+                    self.hand.append(cards)
+        if self.hand[0]["rank"] in ["A", "K", "Q"] and self.hand[1]["rank"] in ["A", "K", "Q"]:
+            return 6000
         else:
-            for card in self.hand:
-                self.allvalues.append(card["rank"])
-            for card in self.commun_cards:
-                self.allvalues.append(card["rank"])
-            if len(set(self.allvalues)) < 5:
-                bet = 6000
-
-        return 0
+            return 0
 
         #     if game_state["pot"] > 100:
         #         if self.hand[0]["rank"] in self.high_cards and self.hand[1]["rank"] in self.high_cards:
