@@ -153,7 +153,7 @@ a = {
 #             ]}
 
 class Player:
-    VERSION = "EGESZ JO"
+    VERSION = "kamikaze"
 
     low_cards = ["2", "3", "4", "5", "6", "7"]
     high_cards = ["10", "J", "Q", "K", "A"]
@@ -208,7 +208,7 @@ class Player:
 
     def think(self, game_state):
         self.communreturn(game_state)
-        bet = game_state["minimum_raise"]
+        bet = game_state["minimum_raise"] + 1
 
         if len(game_state["community_cards"]) == 0:
             for player in game_state["players"]:
