@@ -225,8 +225,8 @@ class Player:
 #
 # <<<<<<< Updated upstream
     def think(self, game_state):
-        if len(game_state["community_cards"]) == 0:
-            bet = 1000
+        # if len(game_state["community_cards"]) == 0:
+        bet = 1000
         for player in game_state["players"]:
             if player["name"] == "piton":
                 for cards in player["hole_cards"]:
